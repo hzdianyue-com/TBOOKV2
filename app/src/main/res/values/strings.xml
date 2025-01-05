@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">TBook</string>
+    <string name="app_name">TBOOK</string>
     <string name="title_home">首页</string>
     <string name="title_report">报表</string>
     <string name="title_flow">流水</string>
     <string name="title_person">个人</string>
     <string name="title_activity_add_transaction">添加交易</string>
-    <string name="title_activity_transaction_list">交易列表</string>
+    <string name="title_activity_transaction_list">记一笔</string>
     <string name="title_remind_setting">提醒设置</string>
 
     <string name="hint_amount">金额</string>

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.melon.tbook.model.Transaction;
 import com.melon.tbook.model.TransactionType;
 import com.melon.tbook.model.SubAccount;
+import com.melon.tbook.model.SubAccountInfo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -216,5 +217,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SUB_ACCOUNTS, COLUMN_SUB_ACCOUNT_ID + " = ?", new String[]{String.valueOf(subAccountId)});
         db.close();
+    }
+
+    public List<SubAccountInfo> getSubAccountInfoList() {
+        List<SubAccountInfo> subAccountInfoList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT "+ COLUMN_SUB_ACCOUNT + ", SUM(CASE WHEN " + COLUMN_TYPE + " = '收入' THEN " + COLUMN_AMOUNT + " ELSE 0 END) AS total_income, SUM(CASE WHEN " + COLUMN_TYPE + " = '支出' THEN " + COLUMN_AMOUNT + " ELSE 0 END) AS total_expense FROM "+TABLE_TRANSACTIONS +  " GROUP BY "+COLUMN_SUB_ACCOUNT;
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()) {
+            do {
+                String subAccountName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SUB_ACCOUNT));
+                double totalIncome = cursor.getDouble(cursor.getColumnIndexOrThrow("total_income"));
+                double totalExpense = cursor.getDouble(cursor.getColumnIndexOrThrow("total_expense"));
+                SubAccountInfo info = new SubAccountInfo(subAccountName,totalIncome,totalExpense);
+                subAccountInfoList.add(info);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return subAccountInfoList;
+    }
+
+    public double getTotalTransactionAmount(String type) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT SUM(" + COLUMN_AMOUNT + ") FROM " + TABLE_TRANSACTIONS + " WHERE " + COLUMN_TYPE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{type});
+        double totalAmount = 0;
+        if (cursor.moveToFirst()) {
+            totalAmount = cursor.getDouble(0);
+        }
+        cursor.close();
+        db.close();
+        return totalAmount;
     }
 }
