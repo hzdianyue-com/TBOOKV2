@@ -124,7 +124,7 @@
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/ic_delete"
+        android:background="@drawable/ic_fluent_delete_24_regular"
         />
 
 </RelativeLayout>

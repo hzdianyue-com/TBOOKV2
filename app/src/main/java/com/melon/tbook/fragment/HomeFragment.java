@@ -60,10 +60,16 @@ public class HomeFragment extends Fragment {
         updateUI();
     }
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        dbHelper.close();
+    }
+    @Override
     public void onResume() {
         super.onResume();
         updateUI();
     }
+
     private void updateUI(){
         if(getContext() == null){
             return;
