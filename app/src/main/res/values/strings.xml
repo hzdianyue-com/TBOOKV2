@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">TBook</string>
+    <string name="title_home">首页</string>
+    <string name="title_report">报表</string>
+    <string name="title_flow">流水</string>
+    <string name="title_person">个人</string>
+    <string name="title_activity_add_transaction">添加交易</string>
+    <string name="title_activity_transaction_list">交易列表</string>
+    <string name="title_remind_setting">提醒设置</string>
+
+    <string name="hint_amount">金额</string>
+    <string name="hint_description">描述</string>
+    <string name="hint_borrower">借款人</string>
+    <string name="hint_sub_account">子账户</string>
+    <string name="hint_transaction_type">交易类型</string>
+    <string name="hint_time">时间</string>
+
+    <string name="button_add">添加</string>
+    <string name="button_cancel">取消</string>
+    <string name="no_transactions">暂无交易</string>
+    <string name="title_select_transaction_type">选择交易类型</string>
+    <string name="text_income">收入</string>
+    <string name="text_expense">支出</string>
+    <string name="text_lend">借出</string>
+    <string name="text_borrow">借入</string>
+    <string name="message_add_transaction_success">交易添加成功</string>
+    <string name="message_input_amount_and_description">请填写金额和描述</string>
+    <string name="title_confirm_delete">确认删除</string>
+    <string name="message_confirm_delete_transaction">确定要删除这条交易吗?</string>
+    <string name="button_delete">删除</string>
+    <string name="message_transaction_deleted">交易已删除</string>
+    <string name="button_add_income">添加收入</string>
+    <string name="button_add_expense">添加支出</string>
+    <string name="button_add_lend">添加借出</string>
+    <string name="button_add_borrow">添加借入</string>
+    <string name="button_add_transaction">添加交易</string>
+    <string name="title_manage_sub_account">管理子账户</string>
+    <string name="title_add_sub_account">添加子账户</string>
+    <string name="title_manage_type">管理类型</string>
+    <string name="message_default_account_can_not_delete">默认账户不能删除</string>
+    <string name="title_confirm_delete_sub_account">确认删除子账户</string>
+    <string name="message_confirm_delete_type">确定要删除%s吗?</string>
+    <string name="message_default_type_can_not_delete">默认类型不能删除</string>
+    <string name="title_add_type">添加类型</string>
+
+    <string name="default_bank_account">银行卡账户</string>
+    <string name="default_online_account">网络账户</string>
+    <string name="default_alipay">支付宝</string>
+    <string name="default_wechat_wallet">微信钱包</string>
+    <string name="default_financial_account">理财账户</string>
+    <string name="default_salary">工资薪水</string>
+    <string name="default_side_income">副业收入</string>
+    <string name="default_investment_income">投资收益</string>
+    <string name="default_red_packet">红包礼金</string>
+    <string name="default_bonus">奖金</string>
+    <string name="default_rent_income">租金收入</string>
+    <string name="default_other_income">其他收入</string>
+    <string name="default_living_expenses">生活消费</string>
+    <string name="default_housing_expenses">住房支出</string>
+    <string name="default_transportation_expenses">交通支出</string>
+    <string name="default_communication_expenses">通讯支出</string>
+    <string name="default_insurance">保险</string>
+    <string name="default_entertainment_expenses">娱乐休闲</string>
+    <string name="default_education_expenses">教育支出</string>
+    <string name="default_medical_expenses">医疗支出</string>
+    <string name="default_family_expenses">家庭支出</string>
+    <string name="default_saving_investment">储蓄投资</string>
+    <string name="default_other_expenses">其他支出</string>
+    <string name="message_confirm_delete_sub_account">确定要删除%s吗?</string>
+
+</resources>
