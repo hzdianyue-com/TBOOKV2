@@ -14,6 +14,7 @@ import com.melon.tbook.R;
 import com.melon.tbook.model.SubAccountInfo;
 
 import java.util.List;
+import java.util.Locale;
 
 public class SubAccountAdapter extends RecyclerView.Adapter<SubAccountAdapter.ViewHolder> {
 
@@ -34,10 +35,13 @@ public class SubAccountAdapter extends RecyclerView.Adapter<SubAccountAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SubAccountInfo subAccountInfo = subAccountInfoList.get(position);
         holder.textSubAccountName.setText(subAccountInfo.getSubAccountName());
-        holder.textIncome.setText(String.valueOf(subAccountInfo.getTotalIncome()));
-        holder.textExpense.setText(String.valueOf(subAccountInfo.getTotalExpense()));
+        String formattedTotalIncome = String.format(Locale.getDefault(), "%.2f", subAccountInfo.getTotalIncome());
+        holder.textIncome.setText(formattedTotalIncome);
+        String formattedTotalExpense = String.format(Locale.getDefault(), "%.2f", subAccountInfo.getTotalExpense());
+        holder.textExpense.setText(formattedTotalExpense);
         double balance = subAccountInfo.getTotalIncome() - subAccountInfo.getTotalExpense();
-        holder.textBalance.setText(String.valueOf(balance));
+        String formattedbalance = String.format(Locale.getDefault(), "%.2f", balance);
+        holder.textBalance.setText(formattedbalance);
     }
 
     @Override

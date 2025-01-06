@@ -22,6 +22,7 @@ import com.melon.tbook.utils.DataProxy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
@@ -79,16 +80,15 @@ public class HomeFragment extends Fragment {
         double totalBorrow =  dbHelper.getTotalTransactionAmount("借入");
         double totalLend = dbHelper.getTotalTransactionAmount("借出");
 
-
         double totalBalance = totalIncome - totalExpense;
-
-        totalBalanceTextView.setText("总收支: " + String.valueOf(totalBalance));
+        String formattedTotalBalance = String.format(Locale.getDefault(), "%.2f", totalBalance);
+        totalBalanceTextView.setText("总收支: " + formattedTotalBalance);
         List<SubAccountInfo> subAccountInfos = dbHelper.getSubAccountInfoList();
         adapter.setSubAccounts(subAccountInfos);
-        totalBorrowTextView.setText(String.valueOf(totalBorrow));
-        totalLendTextView.setText(String.valueOf(totalLend));
-
-
+        String formattedTotalBorrow = String.format(Locale.getDefault(), "%.2f", totalBorrow);
+        totalBorrowTextView.setText(formattedTotalBorrow);
+        String formattedTotalLend = String.format(Locale.getDefault(), "%.2f", totalLend);
+        totalLendTextView.setText(formattedTotalLend);
     }
     class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
 

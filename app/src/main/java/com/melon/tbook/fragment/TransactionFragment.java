@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import com.melon.tbook.model.Transaction;
 import com.melon.tbook.model.TransactionType;
 import com.melon.tbook.model.SubAccount;
 import com.melon.tbook.utils.DataProxy;
+import com.melon.tbook.utils.DecimalDigitsInputFilter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -129,6 +131,8 @@ public class TransactionFragment extends Fragment  implements ManageTransactionT
         // 默认选中第一个
         spinnerTransactionType.setSelection(0);
         setTransactionTypesBySelect(spinnerTransactionType.getSelectedItem().toString());
+
+        editAmount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(2)});
 
         buttonAddTransaction.setOnClickListener(v -> {
             addTransaction();

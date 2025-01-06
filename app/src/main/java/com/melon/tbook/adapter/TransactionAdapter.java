@@ -47,7 +47,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Transaction transaction = transactionList.get(position);
-        holder.textAmount.setText(String.valueOf(transaction.getAmount()));
+        String formattedAmount = String.format(Locale.getDefault(), "%.2f", transaction.getAmount());
+        holder.textAmount.setText(formattedAmount);
         holder.textDescription.setText(transaction.getDescription());
         holder.textType.setText(transaction.getType());
         holder.textSubAccount.setText(transaction.getSubAccount());
