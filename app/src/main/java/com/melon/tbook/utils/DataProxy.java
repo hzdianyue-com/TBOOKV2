@@ -6,6 +6,7 @@ import com.melon.tbook.model.SubAccount;
 import com.melon.tbook.model.Transaction;
 import com.melon.tbook.model.TransactionType;
 import com.melon.tbook.model.SubAccountInfo;
+import com.melon.tbook.model.User;
 
 
 import java.util.List;
@@ -29,5 +30,9 @@ public abstract class DataProxy {
     public abstract long addSubAccount(SubAccount subAccount);
     public abstract List<SubAccountInfo> getSubAccountInfoList() ;
     public abstract double getTotalTransactionAmount(String type);
+    public abstract long addUser(User user);
+    public abstract User getUserByUsername(String username);
+    public abstract void updateUser(User user);
+    public abstract void deleteUser(int userId);
     public abstract void destroy();
 }

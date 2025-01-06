@@ -38,12 +38,6 @@ public class SubAccountAdapter extends RecyclerView.Adapter<SubAccountAdapter.Vi
         holder.textExpense.setText(String.valueOf(subAccountInfo.getTotalExpense()));
         double balance = subAccountInfo.getTotalIncome() - subAccountInfo.getTotalExpense();
         holder.textBalance.setText(String.valueOf(balance));
-
-        //  设置背景
-        Drawable[] drawables = new Drawable[2];
-        drawables[0] = holder.itemView.getContext().getResources().getDrawable(R.drawable.rounded_background);
-        drawables[1] = holder.itemView.getContext().getResources().getDrawable(R.drawable.rounded_background1);
-        holder.itemView.setBackground(drawables[position % drawables.length]);
     }
 
     @Override

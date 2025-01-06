@@ -21,15 +21,14 @@ import com.melon.tbook.utils.DatabaseHelper;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbHelper = new DatabaseHelper(this);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.navigation_home) {
                 loadFragment(new HomeFragment());

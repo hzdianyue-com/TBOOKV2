@@ -10,6 +10,8 @@ import com.melon.tbook.model.Transaction;
 import com.melon.tbook.model.TransactionType;
 import com.melon.tbook.model.SubAccount;
 import com.melon.tbook.model.SubAccountInfo;
+import com.melon.tbook.model.User;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_SUB_ACCOUNT = "subAccount";
     private static final String COLUMN_BORROWER = "borrower";
 
-
     private static final String TABLE_TRANSACTION_TYPES = "transaction_types";
     private static final String COLUMN_TYPE_ID = "id";
     private static final String COLUMN_TYPE_NAME = "name";
@@ -36,6 +37,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_SUB_ACCOUNTS = "sub_accounts";
     private static final String COLUMN_SUB_ACCOUNT_ID = "id";
     private static final String COLUMN_SUB_ACCOUNT_NAME = "name";
+
+    private static final String TABLE_USERS = "users";
+    private static final String COLUMN_USER_ID = "id";
+    private static final String COLUMN_USER_USERNAME = "username";
+    private static final String COLUMN_USER_PASSWORD = "password";
+    private static final String COLUMN_USER_NICKNAME = "nickname";
+    private static final String COLUMN_USER_EMAIL = "email";
 
 
     private static final String CREATE_TABLE_TRANSACTIONS = "CREATE TABLE " +
@@ -59,6 +67,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_SUB_ACCOUNT_NAME + " TEXT" +
             ")";
 
+    private static final String CREATE_TABLE_USERS = "CREATE TABLE " +
+            TABLE_USERS + "(" +
+            COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COLUMN_USER_USERNAME + " TEXT UNIQUE," +
+            COLUMN_USER_PASSWORD + " TEXT," +
+            COLUMN_USER_NICKNAME + " TEXT," +
+            COLUMN_USER_EMAIL + " TEXT" +
+            ")";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -68,6 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_TRANSACTIONS);
         db.execSQL(CREATE_TABLE_TRANSACTION_TYPES);
         db.execSQL(CREATE_TABLE_SUB_ACCOUNTS);
+        db.execSQL(CREATE_TABLE_USERS);
         // 添加默认的交易类型
         addDefaultTransactionTypes(db);
     }
@@ -93,6 +111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTIONS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTION_TYPES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUB_ACCOUNTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         onCreate(db);
         /*
         if(oldVersion < 2){
@@ -250,5 +269,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return totalAmount;
+    }
+
+    public long addUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_USERNAME, user.getUsername());
+        values.put(COLUMN_USER_PASSWORD, user.getPassword());
+        values.put(COLUMN_USER_NICKNAME, user.getNickname());
+        values.put(COLUMN_USER_EMAIL, user.getEmail());
+        long id = db.insert(TABLE_USERS, null, values);
+        db.close();
+        return id;
+    }
+
+    public User getUserByUsername(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USERS, null, COLUMN_USER_USERNAME + "=?", new String[]{username}, null, null, null);
+        User user = null;
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_USER_ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_USERNAME));
+            String password = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_PASSWORD));
+            String nickname = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_NICKNAME));
+            String email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_EMAIL));
+            user = new User(id,name, password,nickname,email);
+
+        }
+        cursor.close();
+        db.close();
+        return user;
+    }
+    public void updateUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_PASSWORD, user.getPassword());
+        values.put(COLUMN_USER_NICKNAME, user.getNickname());
+        values.put(COLUMN_USER_EMAIL, user.getEmail());
+        db.update(TABLE_USERS,values, COLUMN_USER_ID + "=?", new String[]{String.valueOf(user.getId())});
+        db.close();
+    }
+    public void deleteUser(int userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_USERS, COLUMN_USER_ID + " = ?", new String[]{String.valueOf(userId)});
+        db.close();
     }
 }
