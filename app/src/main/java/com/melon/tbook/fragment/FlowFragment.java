@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.melon.tbook.R;
 import com.melon.tbook.adapter.TransactionAdapter;
 import com.melon.tbook.model.Transaction;
-import com.melon.tbook.utils.DatabaseHelper;
+import com.melon.tbook.utils.DataProxy;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
 public class FlowFragment extends Fragment implements TransactionAdapter.OnTransactionClickListener {
     private RecyclerView recyclerView;
     private TransactionAdapter adapter;
-    private DatabaseHelper dbHelper;
+    private DataProxy dbHelper;
     private TextView noTransactionsText;
 
 
@@ -49,7 +49,7 @@ public class FlowFragment extends Fragment implements TransactionAdapter.OnTrans
         recyclerView = view.findViewById(R.id.recycler_view_transactions);
         noTransactionsText = view.findViewById(R.id.text_no_transactions);
 
-        dbHelper = new DatabaseHelper(getContext());
+        dbHelper = DataProxy.getInstance(getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         // 添加 ItemDecoration 设置 item 间距

@@ -35,7 +35,7 @@ import com.melon.tbook.adapter.ManageTransactionTypeAdapter;
 import com.melon.tbook.model.Transaction;
 import com.melon.tbook.model.TransactionType;
 import com.melon.tbook.model.SubAccount;
-import com.melon.tbook.utils.DatabaseHelper;
+import com.melon.tbook.utils.DataProxy;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ import java.util.Locale;
 
 
 public class TransactionFragment extends Fragment  implements ManageTransactionTypeAdapter.OnTransactionTypeClickListener {
-    private DatabaseHelper dbHelper;
+    private DataProxy dbHelper;
     private Spinner spinnerTransactionType;
     private Spinner spinnerSubAccount;
     private ImageView buttonManageSubAccount;
@@ -91,7 +91,7 @@ public class TransactionFragment extends Fragment  implements ManageTransactionT
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dbHelper = new DatabaseHelper(getContext());
+        dbHelper = DataProxy.getInstance(getContext());
         sharedPreferences = getContext().getSharedPreferences("tbook_prefs", Context.MODE_PRIVATE);
         // 初始化时间
         calendar = Calendar.getInstance();

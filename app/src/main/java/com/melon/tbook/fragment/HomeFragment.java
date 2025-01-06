@@ -17,7 +17,7 @@ import com.melon.tbook.R;
 import com.melon.tbook.adapter.SubAccountAdapter;
 import com.melon.tbook.model.SubAccountInfo;
 import com.melon.tbook.model.Transaction;
-import com.melon.tbook.utils.DatabaseHelper;
+import com.melon.tbook.utils.DataProxy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
-    private DatabaseHelper dbHelper;
+    private DataProxy dbHelper;
     private TextView totalBalanceTextView;
     private RecyclerView recyclerView;
     private SubAccountAdapter adapter;
@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dbHelper = new DatabaseHelper(getContext());
+        dbHelper = DataProxy.getInstance(getContext());
         totalBalanceTextView = view.findViewById(R.id.text_total_balance);
         recyclerView = view.findViewById(R.id.recycler_view_sub_accounts);
         totalBorrowTextView = view.findViewById(R.id.text_total_borrow);
@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        dbHelper.close();
+        dbHelper.destroy();
     }
     @Override
     public void onResume() {
