@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TBOOK</string>
+    <string name="app_name">小瓜记账</string>
     <string name="title_home">首页</string>
     <string name="title_report">报表</string>
     <string name="title_flow">流水</string>

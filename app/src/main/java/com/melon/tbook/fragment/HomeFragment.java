@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
 
         double totalBalance = totalIncome - totalExpense;
         String formattedTotalBalance = String.format(Locale.getDefault(), "%.2f", totalBalance);
-        totalBalanceTextView.setText("总收支: " + formattedTotalBalance);
+        totalBalanceTextView.setText("总计: " + formattedTotalBalance);
         List<SubAccountInfo> subAccountInfos = dbHelper.getSubAccountInfoList();
         adapter.setSubAccounts(subAccountInfos);
         String formattedTotalBorrow = String.format(Locale.getDefault(), "%.2f", totalBorrow);
