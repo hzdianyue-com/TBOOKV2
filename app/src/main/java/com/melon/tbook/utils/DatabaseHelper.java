@@ -89,6 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // 添加默认的交易类型
         addDefaultTransactionTypes(db);
     }
+
     private void addDefaultTransactionTypes(SQLiteDatabase db) {
         List<String> defaultIncomeTypes = Arrays.asList(
                 "工资薪水", "副业收入", "投资收益", "红包礼金", "奖金", "租金收入", "其他收入"
@@ -96,11 +97,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<String> defaultExpenseTypes = Arrays.asList(
                 "生活消费", "住房支出", "交通支出", "通讯支出", "保险", "娱乐休闲", "教育支出", "医疗支出", "家庭支出", "储蓄投资", "其他支出"
         );
-        for(String type : defaultIncomeTypes){
-            addTransactionType(db, new TransactionType(type,"收入"));
+        for (String type : defaultIncomeTypes) {
+            addTransactionType(db, new TransactionType(type, "收入"));
         }
-        for(String type: defaultExpenseTypes){
-            addTransactionType(db, new TransactionType(type,"支出"));
+        for (String type : defaultExpenseTypes) {
+            addTransactionType(db, new TransactionType(type, "支出"));
         }
     }
 
@@ -155,7 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String type = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TYPE));
                 String subAccount = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SUB_ACCOUNT));
                 String borrower = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_BORROWER));
-                Transaction transaction = new Transaction(id, amount, description, type,subAccount,borrower);
+                Transaction transaction = new Transaction(id, amount, description, type, subAccount, borrower);
                 transactionList.add(transaction);
             } while (cursor.moveToNext());
         }
@@ -170,13 +171,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE_TRANSACTIONS, COLUMN_ID + " = ?", new String[]{String.valueOf(transactionId)});
         db.close();
     }
-    public long addTransactionType(SQLiteDatabase db,TransactionType transactionType) {
+
+    public long addTransactionType(SQLiteDatabase db, TransactionType transactionType) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_TYPE_NAME, transactionType.getName());
         values.put(COLUMN_TYPE_TYPE, transactionType.getType());
         long id = db.insert(TABLE_TRANSACTION_TYPES, null, values);
         return id;
     }
+
     public long addTransactionType(TransactionType transactionType) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -186,10 +189,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return id;
     }
+
     public List<TransactionType> getAllTransactionTypes(String type) {
         List<TransactionType> transactionTypeList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_TRANSACTION_TYPES, null, COLUMN_TYPE_TYPE +" = ?", new String[]{type}, null, null, null);
+        Cursor cursor = db.query(TABLE_TRANSACTION_TYPES, null, COLUMN_TYPE_TYPE + " = ?", new String[]{type}, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TYPE_ID));
@@ -203,11 +207,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return transactionTypeList;
     }
+
     public void deleteTransactionType(int transactionTypeId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TRANSACTION_TYPES, COLUMN_TYPE_ID + " = ?", new String[]{String.valueOf(transactionTypeId)});
         db.close();
     }
+
     public long addSubAccount(SubAccount subAccount) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -216,6 +222,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return id;
     }
+
     public List<SubAccount> getAllSubAccounts() {
         List<SubAccount> subAccountList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -232,6 +239,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return subAccountList;
     }
+
     public void deleteSubAccount(int subAccountId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SUB_ACCOUNTS, COLUMN_SUB_ACCOUNT_ID + " = ?", new String[]{String.valueOf(subAccountId)});
@@ -241,14 +249,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<SubAccountInfo> getSubAccountInfoList() {
         List<SubAccountInfo> subAccountInfoList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT "+ COLUMN_SUB_ACCOUNT + ", SUM(CASE WHEN " + COLUMN_TYPE + " = '收入' THEN " + COLUMN_AMOUNT + " ELSE 0 END) AS total_income, SUM(CASE WHEN " + COLUMN_TYPE + " = '支出' THEN " + COLUMN_AMOUNT + " ELSE 0 END) AS total_expense FROM "+TABLE_TRANSACTIONS +  " GROUP BY "+COLUMN_SUB_ACCOUNT;
-        Cursor cursor = db.rawQuery(query,null);
+        String query = "SELECT " + COLUMN_SUB_ACCOUNT + ", SUM(CASE WHEN " + COLUMN_TYPE + " = '收入' THEN " + COLUMN_AMOUNT + " ELSE 0 END) AS total_income, SUM(CASE WHEN " + COLUMN_TYPE + " = '支出' THEN " + COLUMN_AMOUNT + " ELSE 0 END) AS total_expense FROM " + TABLE_TRANSACTIONS + " GROUP BY " + COLUMN_SUB_ACCOUNT;
+        Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             do {
                 String subAccountName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SUB_ACCOUNT));
                 double totalIncome = cursor.getDouble(cursor.getColumnIndexOrThrow("total_income"));
                 double totalExpense = cursor.getDouble(cursor.getColumnIndexOrThrow("total_expense"));
-                SubAccountInfo info = new SubAccountInfo(subAccountName,totalIncome,totalExpense);
+                SubAccountInfo info = new SubAccountInfo(subAccountName, totalIncome, totalExpense);
                 subAccountInfoList.add(info);
             } while (cursor.moveToNext());
         }
@@ -293,22 +301,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String password = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_PASSWORD));
             String nickname = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_NICKNAME));
             String email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_EMAIL));
-            user = new User(id,name, password,nickname,email);
+            user = new User(id, name, password, nickname, email);
 
         }
         cursor.close();
         db.close();
         return user;
     }
+
     public void updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_PASSWORD, user.getPassword());
         values.put(COLUMN_USER_NICKNAME, user.getNickname());
         values.put(COLUMN_USER_EMAIL, user.getEmail());
-        db.update(TABLE_USERS,values, COLUMN_USER_ID + "=?", new String[]{String.valueOf(user.getId())});
+        db.update(TABLE_USERS, values, COLUMN_USER_ID + "=?", new String[]{String.valueOf(user.getId())});
         db.close();
     }
+
     public void deleteUser(int userId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_USERS, COLUMN_USER_ID + " = ?", new String[]{String.valueOf(userId)});

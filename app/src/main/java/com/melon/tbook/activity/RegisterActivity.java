@@ -42,35 +42,37 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(v -> register());
 
     }
-    private void register(){
+
+    private void register() {
         String username = editUsername.getText().toString();
         String password = editPassword.getText().toString();
         String confirmPassword = editConfirmPassword.getText().toString();
         String nickname = editNickname.getText().toString();
         String email = editEmail.getText().toString();
-        if(username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || nickname.isEmpty() || email.isEmpty()){
+        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || nickname.isEmpty() || email.isEmpty()) {
             Toast.makeText(this, "请填写所有信息", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!password.equals(confirmPassword)){
+        if (!password.equals(confirmPassword)) {
             Toast.makeText(this, "两次密码输入不一致", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!isValidEmail(email)){
+        if (!isValidEmail(email)) {
             Toast.makeText(this, "邮箱格式不正确", Toast.LENGTH_SHORT).show();
             return;
         }
         String hashedPassword = hashPassword(password);
         User user = new User(username, hashedPassword, nickname, email);
         long id = dbHelper.addUser(user);
-        if(id>0){
+        if (id > 0) {
             Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
             finish();
-        }else{
+        } else {
             Toast.makeText(this, "注册失败", Toast.LENGTH_SHORT).show();
         }
 
     }
+
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
@@ -85,6 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
             return null;
         }
     }
+
     public boolean isValidEmail(String email) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);

@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_options_menu, menu);
@@ -69,14 +70,15 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private void showRemindSettingDialog(){
+
+    private void showRemindSettingDialog() {
         // TODO: 实现提醒事件的设置逻辑
         // 例如 打开一个对话框， 或者跳转到一个新的 Activity
         // 这里先用一个 Toast 提示
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
         builder.setTitle(R.string.title_remind_setting);
         builder.setMessage("这里是提醒设置");
-        builder.setPositiveButton("确定",null);
+        builder.setPositiveButton("确定", null);
         builder.show();
     }
 }

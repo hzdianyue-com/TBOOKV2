@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView textRegister;
     private DataProxy dbHelper;
     private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +38,13 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin = findViewById(R.id.button_login);
         textRegister = findViewById(R.id.text_register);
         buttonLogin.setOnClickListener(v -> login());
-        textRegister.setOnClickListener(v ->  {
+        textRegister.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
         // 如果已经登录，则自动跳转
-        String username = sharedPreferences.getString("username",null);
-        if(username!=null){
+        String username = sharedPreferences.getString("username", null);
+        if (username != null) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -51,25 +52,26 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void login(){
+    private void login() {
         String username = editUsername.getText().toString();
         String password = editPassword.getText().toString();
-        if(username.isEmpty() || password.isEmpty()){
+        if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
         User user = dbHelper.getUserByUsername(username);
-        if(user!=null && hashPassword(password).equals(user.getPassword())){
+        if (user != null && hashPassword(password).equals(user.getPassword())) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("username",username);
+            editor.putString("username", username);
             editor.apply();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
-        }else{
+        } else {
             Toast.makeText(this, "用户名或者密码不正确", Toast.LENGTH_SHORT).show();
         }
     }
+
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
