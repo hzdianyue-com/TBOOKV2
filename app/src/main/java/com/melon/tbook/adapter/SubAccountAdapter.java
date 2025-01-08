@@ -23,6 +23,7 @@ public class SubAccountAdapter extends RecyclerView.Adapter<SubAccountAdapter.Vi
     public SubAccountAdapter(List<SubAccountInfo> subAccountInfoList) {
         this.subAccountInfoList = subAccountInfoList;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,15 +49,18 @@ public class SubAccountAdapter extends RecyclerView.Adapter<SubAccountAdapter.Vi
     public int getItemCount() {
         return subAccountInfoList.size();
     }
-    public void setSubAccounts(List<SubAccountInfo> subAccounts){
+
+    public void setSubAccounts(List<SubAccountInfo> subAccounts) {
         this.subAccountInfoList = subAccounts;
         notifyDataSetChanged();
     }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textSubAccountName;
         TextView textIncome;
         TextView textExpense;
         TextView textBalance;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textSubAccountName = itemView.findViewById(R.id.text_sub_account_name);

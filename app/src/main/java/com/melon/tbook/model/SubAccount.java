@@ -8,6 +8,7 @@ public class SubAccount {
         this.id = id;
         this.name = name;
     }
+
     public SubAccount(String name) {
         this.name = name;
     }

@@ -23,7 +23,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     private OnTransactionClickListener transactionClickListener;
 
 
-    public interface OnTransactionClickListener{
+    public interface OnTransactionClickListener {
         void onTransactionClick(Transaction transaction);
     }
 
@@ -56,7 +56,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         holder.textTime.setText(sdf.format(new Date()));
         holder.buttonDelete.setOnClickListener(v -> {
-            if(transactionClickListener!=null){
+            if (transactionClickListener != null) {
                 transactionClickListener.onTransactionClick(transaction);
             }
         });
@@ -67,7 +67,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         return transactionList.size();
     }
 
-    public void setTransactions(List<Transaction> transactions){
+    public void setTransactions(List<Transaction> transactions) {
         this.transactionList = transactions;
         notifyDataSetChanged();
     }
@@ -80,6 +80,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         TextView textBorrower;
         TextView textTime;
         Button buttonDelete;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textAmount = itemView.findViewById(R.id.text_amount);

@@ -60,24 +60,26 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         updateUI();
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         dbHelper.destroy();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         updateUI();
     }
 
-    private void updateUI(){
-        if(getContext() == null){
+    private void updateUI() {
+        if (getContext() == null) {
             return;
         }
-        double totalIncome =  dbHelper.getTotalTransactionAmount("收入");
+        double totalIncome = dbHelper.getTotalTransactionAmount("收入");
         double totalExpense = dbHelper.getTotalTransactionAmount("支出");
-        double totalBorrow =  dbHelper.getTotalTransactionAmount("借入");
+        double totalBorrow = dbHelper.getTotalTransactionAmount("借入");
         double totalLend = dbHelper.getTotalTransactionAmount("借出");
 
         double totalBalance = totalIncome - totalExpense;
@@ -90,6 +92,7 @@ public class HomeFragment extends Fragment {
         String formattedTotalLend = String.format(Locale.getDefault(), "%.2f", totalLend);
         totalLendTextView.setText(formattedTotalLend);
     }
+
     class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
 
         private final int verticalSpaceHeight;

@@ -21,18 +21,32 @@ public abstract class DataProxy {
         }
         return instance;
     }
+
     public abstract long addTransaction(Transaction transaction);
+
     public abstract List<Transaction> getAllTransactions();
+
     public abstract void deleteTransaction(int transactionId);
-    public abstract long addTransactionType(TransactionType transactionType) ;
-    public abstract List<TransactionType> getAllTransactionTypes(String type) ;
-    public abstract void deleteTransactionType(int transactionTypeId) ;
+
+    public abstract long addTransactionType(TransactionType transactionType);
+
+    public abstract List<TransactionType> getAllTransactionTypes(String type);
+
+    public abstract void deleteTransactionType(int transactionTypeId);
+
     public abstract long addSubAccount(SubAccount subAccount);
-    public abstract List<SubAccountInfo> getSubAccountInfoList() ;
+
+    public abstract List<SubAccountInfo> getSubAccountInfoList();
+
     public abstract double getTotalTransactionAmount(String type);
+
     public abstract long addUser(User user);
+
     public abstract User getUserByUsername(String username);
+
     public abstract void updateUser(User user);
+
     public abstract void deleteUser(int userId);
+
     public abstract void destroy();
 }

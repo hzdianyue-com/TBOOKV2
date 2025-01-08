@@ -66,8 +66,9 @@ public class FlowFragment extends Fragment implements TransactionAdapter.OnTrans
         super.onResume();
         updateTransactionList();
     }
+
     private void updateTransactionList() {
-        if(getContext() == null){
+        if (getContext() == null) {
             return;
         }
         List<Transaction> transactions = dbHelper.getAllTransactions();
@@ -101,6 +102,7 @@ public class FlowFragment extends Fragment implements TransactionAdapter.OnTrans
         builder.setNegativeButton(R.string.button_cancel, null);
         builder.show();
     }
+
     class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
 
         private final int verticalSpaceHeight;

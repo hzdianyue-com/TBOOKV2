@@ -19,20 +19,22 @@ public class ManageTransactionTypeAdapter extends RecyclerView.Adapter<ManageTra
     private List<TransactionType> transactionTypeList;
     private OnTransactionTypeClickListener transactionTypeClickListener;
 
-    public ManageTransactionTypeAdapter(List<TransactionType> transactionTypeList){
+    public ManageTransactionTypeAdapter(List<TransactionType> transactionTypeList) {
         this.transactionTypeList = transactionTypeList;
     }
+
     public void setTransactionTypeClickListener(OnTransactionTypeClickListener transactionTypeClickListener) {
         this.transactionTypeClickListener = transactionTypeClickListener;
     }
 
-    public interface OnTransactionTypeClickListener{
+    public interface OnTransactionTypeClickListener {
         void onTransactionTypeClick(TransactionType transactionType);
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_manage_transaction_type, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_manage_transaction_type, parent, false);
         return new ViewHolder(view);
     }
 
@@ -40,8 +42,8 @@ public class ManageTransactionTypeAdapter extends RecyclerView.Adapter<ManageTra
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TransactionType transactionType = transactionTypeList.get(position);
         holder.textTypeName.setText(transactionType.getName());
-        holder.buttonDeleteType.setOnClickListener(v ->{
-            if(transactionTypeClickListener != null){
+        holder.buttonDeleteType.setOnClickListener(v -> {
+            if (transactionTypeClickListener != null) {
                 transactionTypeClickListener.onTransactionTypeClick(transactionType);
             }
         });
@@ -52,14 +54,15 @@ public class ManageTransactionTypeAdapter extends RecyclerView.Adapter<ManageTra
         return transactionTypeList.size();
     }
 
-    public void setTransactionTypes(List<TransactionType> transactionTypes){
+    public void setTransactionTypes(List<TransactionType> transactionTypes) {
         this.transactionTypeList = transactionTypes;
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textTypeName;
         Button buttonDeleteType;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textTypeName = itemView.findViewById(R.id.text_type_name);
