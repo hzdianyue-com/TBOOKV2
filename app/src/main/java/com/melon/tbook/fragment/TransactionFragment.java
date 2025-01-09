@@ -189,7 +189,7 @@ public class TransactionFragment extends Fragment  implements ManageTransactionT
     }
 
     private void showManageSubAccountDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.CustomDialogTheme);
         builder.setTitle(R.string.title_manage_sub_account);
         final String[] subAccountArray = subAccounts.toArray(new String[0]);
         List<String> defaultAccounts = Arrays.asList(getString(R.string.default_bank_account), getString(R.string.default_online_account), getString(R.string.default_alipay), getString(R.string.default_wechat_wallet), getString(R.string.default_financial_account));

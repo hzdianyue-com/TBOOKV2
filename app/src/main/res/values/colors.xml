@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background">#E0E0E0</color>
+    <color name="icon_delete_color">#404040</color>
 </resources>
