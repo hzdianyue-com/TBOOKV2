@@ -9,10 +9,11 @@
     <string name="title_remind_setting">提醒设置</string>
 
     <string name="hint_amount">金额</string>
-    <string name="hint_description">描述</string>
+    <string name="hint_description">备注</string>
     <string name="hint_borrower">借款人</string>
     <string name="hint_sub_account">子账户</string>
     <string name="hint_transaction_type">交易类型</string>
+    <string name="operate_transaction_type">操作类型</string>
     <string name="hint_time">时间</string>
 
     <string name="button_add">添加</string>
@@ -76,5 +77,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="subaccount_manage">子账户管理</string>
 
 </resources>

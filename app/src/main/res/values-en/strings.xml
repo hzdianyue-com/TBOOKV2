@@ -13,6 +13,7 @@
     <string name="hint_borrower">Borrower</string>
     <string name="hint_sub_account">Sub Account</string>
     <string name="hint_transaction_type">Transaction Type</string>
+    <string name="operate_transaction_type">Type</string>
     <string name="hint_time">Time</string>
 
     <string name="button_add">Add</string>
@@ -66,5 +67,15 @@
     <string name="default_other_expenses">Other Expenses</string>
     <string name="message_confirm_delete_sub_account">Are you sure you want to delete %s?</string>
     <string name="message_confirm_delete_type">Are you sure you want to delete %s?</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">Welcome !</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">Login failed</string>
+    <string name="subaccount_manage">subaccount manage</string>
 
 </resources>
