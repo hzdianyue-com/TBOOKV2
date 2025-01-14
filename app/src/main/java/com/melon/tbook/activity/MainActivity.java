@@ -1,5 +1,8 @@
 package com.melon.tbook.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +48,36 @@ public class MainActivity extends AppCompatActivity {
         });
         // 默认加载 home
         loadFragment(new HomeFragment());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!checkLogin()){
+            return;
+        }
+    }
+
+    private boolean checkLogin() {
+        SharedPreferences sharedPreferences = getSharedPreferences("tbook_prefs", Context.MODE_PRIVATE);
+
+        String username = sharedPreferences.getString("username", null);
+        if (username == null) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences.Editor editor = getSharedPreferences("tbook_prefs", MODE_PRIVATE).edit();
+        editor.putString("username", null);
+        editor.apply();
     }
 
     private void loadFragment(Fragment fragment) {
