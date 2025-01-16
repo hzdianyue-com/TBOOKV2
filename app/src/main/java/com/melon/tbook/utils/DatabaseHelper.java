@@ -56,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_SUB_ACCOUNT + " TEXT," +
             COLUMN_BORROWER + " TEXT" +
             ")";
+
     private static final String CREATE_TABLE_TRANSACTION_TYPES = "CREATE TABLE " +
             TABLE_TRANSACTION_TYPES + "(" +
             COLUMN_TYPE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
