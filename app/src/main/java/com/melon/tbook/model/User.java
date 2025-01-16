@@ -6,22 +6,23 @@ public class User {
     private String password;
     private String nickname;
     private String email;
+    private String avatar;
 
-    public User(int id, String username, String password, String nickname, String email) {
+    public User(int id, String username, String password, String nickname, String email,String avatar) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.email = email;
+        this.avatar = avatar;
     }
-
-    public User(String username, String password, String nickname, String email) {
+    public User(String username, String password, String nickname, String email, String avatar) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.email = email;
+        this.avatar = avatar;
     }
-
     public int getId() {
         return id;
     }
@@ -60,5 +61,11 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getAvatar() {
+        return avatar;
+    }
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

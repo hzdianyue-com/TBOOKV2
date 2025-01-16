@@ -44,6 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_PASSWORD = "password";
     private static final String COLUMN_USER_NICKNAME = "nickname";
     private static final String COLUMN_USER_EMAIL = "email";
+    private static final String COLUMN_USER_AVATAR = "avatar";
 
 
     private static final String CREATE_TABLE_TRANSACTIONS = "CREATE TABLE " +
@@ -73,7 +74,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             COLUMN_USER_USERNAME + " TEXT UNIQUE," +
             COLUMN_USER_PASSWORD + " TEXT," +
             COLUMN_USER_NICKNAME + " TEXT," +
-            COLUMN_USER_EMAIL + " TEXT" +
+            COLUMN_USER_EMAIL + " TEXT," +
+            COLUMN_USER_AVATAR + " TEXT" +
             ")";
 
     public DatabaseHelper(Context context) {
@@ -286,6 +288,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USER_PASSWORD, user.getPassword());
         values.put(COLUMN_USER_NICKNAME, user.getNickname());
         values.put(COLUMN_USER_EMAIL, user.getEmail());
+        values.put(COLUMN_USER_AVATAR, user.getAvatar());
         long id = db.insert(TABLE_USERS, null, values);
         db.close();
         return id;
@@ -301,7 +304,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String password = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_PASSWORD));
             String nickname = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_NICKNAME));
             String email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_EMAIL));
-            user = new User(id, name, password, nickname, email);
+            String avatar = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_AVATAR));
+            user = new User(id, name, password, nickname, email, avatar);
 
         }
         cursor.close();
@@ -315,6 +319,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_USER_PASSWORD, user.getPassword());
         values.put(COLUMN_USER_NICKNAME, user.getNickname());
         values.put(COLUMN_USER_EMAIL, user.getEmail());
+        values.put(COLUMN_USER_AVATAR, user.getAvatar());
         db.update(TABLE_USERS, values, COLUMN_USER_ID + "=?", new String[]{String.valueOf(user.getId())});
         db.close();
     }

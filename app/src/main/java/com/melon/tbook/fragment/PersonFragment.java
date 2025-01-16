@@ -3,25 +3,32 @@ package com.melon.tbook.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.melon.tbook.R;
-//import com.melon.tbook.activity.LoginActivity;
+import com.melon.tbook.activity.LoginActivity;
 import com.melon.tbook.model.User;
 import com.melon.tbook.utils.DataProxy;
-
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -36,7 +43,9 @@ public class PersonFragment extends Fragment {
     private Button buttonResetPassword;
     private Button buttonLogout;
     private SharedPreferences sharedPreferences;
-    private User currentUser;
+    private ImageView imageAvatar;
+    private Uri avatarUri = null;
+    private  User currentUser;
 
     public PersonFragment() {
         // Required empty public constructor
@@ -55,28 +64,27 @@ public class PersonFragment extends Fragment {
         dbHelper = DataProxy.getInstance(getContext());
         sharedPreferences = getContext().getSharedPreferences("tbook_prefs", Context.MODE_PRIVATE);
 
+        imageAvatar = view.findViewById(R.id.image_avatar);
         textUsername = view.findViewById(R.id.text_username);
         editNickname = view.findViewById(R.id.edit_nickname);
         editEmail = view.findViewById(R.id.edit_email);
         buttonResetPassword = view.findViewById(R.id.button_reset_password);
         buttonLogout = view.findViewById(R.id.button_logout);
-
         updateUI();
+        imageAvatar.setOnClickListener(v -> selectAvatar());
         buttonResetPassword.setOnClickListener(v -> showResetPasswordDialog());
         buttonLogout.setOnClickListener(v -> logout());
     }
-
     @Override
     public void onResume() {
         super.onResume();
         updateUI();
     }
-
-    private void updateUI() {
+    private void updateUI(){
         String username = sharedPreferences.getString("username", null);
-        if (username != null) {
+        if(username != null){
             currentUser = dbHelper.getUserByUsername(username);
-            if (currentUser != null) {
+            if(currentUser!=null){
                 textUsername.setText(currentUser.getUsername());
                 editNickname.setText(currentUser.getNickname());
                 editEmail.setText(currentUser.getEmail());
@@ -84,12 +92,11 @@ public class PersonFragment extends Fragment {
         }
 
     }
-
-    private void updateUserInfo() {
-        if (currentUser != null) {
+    private void updateUserInfo(){
+        if(currentUser!=null){
             String nickname = editNickname.getText().toString();
             String email = editEmail.getText().toString();
-            if (!isValidEmail(email)) {
+            if(!isValidEmail(email)){
                 Toast.makeText(getContext(), "邮箱格式不正确", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -99,7 +106,6 @@ public class PersonFragment extends Fragment {
             Toast.makeText(getContext(), "修改成功", Toast.LENGTH_SHORT).show();
         }
     }
-
     private void showResetPasswordDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("重置密码");
@@ -110,11 +116,11 @@ public class PersonFragment extends Fragment {
         builder.setPositiveButton("确定", (dialog, which) -> {
             String password = editPassword.getText().toString();
             String confirmPassword = editConfirmPassword.getText().toString();
-            if (password.isEmpty() || confirmPassword.isEmpty()) {
+            if(password.isEmpty() || confirmPassword.isEmpty()){
                 Toast.makeText(getContext(), "密码不能为空", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (!password.equals(confirmPassword)) {
+            if(!password.equals(confirmPassword)){
                 Toast.makeText(getContext(), "两次密码输入不一致", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -126,9 +132,7 @@ public class PersonFragment extends Fragment {
         });
         builder.setNegativeButton(R.string.button_cancel, null);
         builder.show();
-
     }
-
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
@@ -143,23 +147,36 @@ public class PersonFragment extends Fragment {
             return null;
         }
     }
-
-    private void logout() {
+    private void logout(){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("username");
         editor.apply();
-        /*
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
-
-         */
         getActivity().finish();
     }
-
     public boolean isValidEmail(String email) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+    private void selectAvatar(){
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        selectAvatarLauncher.launch(intent);
+    }
+    private ActivityResultLauncher<Intent> selectAvatarLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() ==  getActivity().RESULT_OK && result.getData() != null) {
+            Intent intent = result.getData();
+            avatarUri = intent.getData();
+            try {
+                InputStream inputStream = getContext().getContentResolver().openInputStream(avatarUri);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                imageAvatar.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    });
 }
