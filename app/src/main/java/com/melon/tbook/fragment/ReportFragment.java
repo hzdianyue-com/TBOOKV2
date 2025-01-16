@@ -128,9 +128,9 @@ public class ReportFragment extends Fragment {
                 continue;
             }
 
-            if(transaction.getType().equals("income")){
+            if(transaction.getType().equals("收入")){
                 totalIncome += transaction.getAmount();
-            }else if(transaction.getType().equals("expense")){
+            }else if(transaction.getType().equals("支出")){
                 totalExpense += transaction.getAmount();
             }
         }
