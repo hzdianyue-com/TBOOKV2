@@ -79,4 +79,8 @@
     <string name="login_failed">"Login failed"</string>
     <string name="subaccount_manage">子账户管理</string>
 
+    <string name="report_title">报表</string>
+    <string name="monthly_report">月度报表</string>
+    <string name="yearly_report">年度报表</string>
+
 </resources>

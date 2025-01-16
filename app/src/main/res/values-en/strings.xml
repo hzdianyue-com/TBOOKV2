@@ -77,5 +77,8 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">Login failed</string>
     <string name="subaccount_manage">subaccount manage</string>
+    <string name="report_title">Report</string>
+    <string name="monthly_report">MReport</string>
+    <string name="yearly_report">YReport</string>
 
 </resources>
