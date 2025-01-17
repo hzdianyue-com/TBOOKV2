@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -113,5 +114,8 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage("这里是提醒设置");
         builder.setPositiveButton("确定", null);
         builder.show();
+    }
+    private void showChangeThemeDialog(){
+        Toast.makeText(this, "切换主题", Toast.LENGTH_SHORT).show();
     }
 }

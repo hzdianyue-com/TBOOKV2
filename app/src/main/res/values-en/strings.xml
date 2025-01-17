@@ -80,5 +80,6 @@
     <string name="report_title">Report</string>
     <string name="monthly_report">MReport</string>
     <string name="yearly_report">YReport</string>
+    <string name="title_settings">Settings</string>
 
 </resources>

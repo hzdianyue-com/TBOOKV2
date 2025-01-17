@@ -82,5 +82,6 @@
     <string name="report_title">报表</string>
     <string name="monthly_report">月度报表</string>
     <string name="yearly_report">年度报表</string>
+    <string name="title_settings">设置</string>
 
 </resources>
