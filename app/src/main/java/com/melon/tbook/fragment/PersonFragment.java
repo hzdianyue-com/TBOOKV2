@@ -40,6 +40,7 @@ public class PersonFragment extends Fragment {
     private TextView textUsername;
     private EditText editNickname;
     private EditText editEmail;
+    private Button buttonSave;
     private Button buttonResetPassword;
     private Button buttonLogout;
     private SharedPreferences sharedPreferences;
@@ -68,10 +69,12 @@ public class PersonFragment extends Fragment {
         textUsername = view.findViewById(R.id.text_username);
         editNickname = view.findViewById(R.id.edit_nickname);
         editEmail = view.findViewById(R.id.edit_email);
+        buttonSave = view.findViewById(R.id.button_save);
         buttonResetPassword = view.findViewById(R.id.button_reset_password);
         buttonLogout = view.findViewById(R.id.button_logout);
         updateUI();
         imageAvatar.setOnClickListener(v -> selectAvatar());
+        buttonSave.setOnClickListener(v -> updateUserInfo());
         buttonResetPassword.setOnClickListener(v -> showResetPasswordDialog());
         buttonLogout.setOnClickListener(v -> logout());
     }
@@ -104,6 +107,7 @@ public class PersonFragment extends Fragment {
             currentUser.setEmail(email);
             dbHelper.updateUser(currentUser);
             Toast.makeText(getContext(), "修改成功", Toast.LENGTH_SHORT).show();
+            updateUI();
         }
     }
     private void showResetPasswordDialog() {

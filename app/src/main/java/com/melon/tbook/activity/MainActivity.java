@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-        // 默认加载 home
         loadFragment(new HomeFragment());
     }
 

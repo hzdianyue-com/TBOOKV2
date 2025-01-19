@@ -1,5 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/action_remind"
         android:icon="@drawable/ic_fluent_alert_24_filled"
@@ -7,8 +8,26 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="1"
-        android:title="@string/title_settings"
+        android:id="@+id/theme_radio_group"
+        android:title="主题选择"
+        app:actionViewClass="android.widget.RadioGroup"
+        app:showAsAction="withText">
+    </item>
+
+    <item
+        android:id="@+id/theme_sea_blue_radio"
+        android:title="海蓝色"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/theme_sky_blue_radio"
+        android:title="天蓝色"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/theme_green_radio"
+        android:title="绿色"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/theme_purple_radio"
+        android:title="紫色"
         app:showAsAction="never" />
 </menu>
